@@ -221,7 +221,8 @@ shellquote "%{name}" >> /tmp/baselibs_new.conf
 shellquote "  targettype x86 block!" >> /tmp/baselibs_new.conf
 shellquote "  targettype 32bit block!" >> /tmp/baselibs_new.conf
 shellquote "  targettype %{_target_cpu} autoreqprov off" >> /tmp/baselibs_new.conf
-shellquote "  targettype %{_target_cpu} targetname cross-%{_target_cpu}-%{oldname} " >> /tmp/baselibs_new.conf
+#shellquote "  targettype %{_target_cpu} targetname cross-%{_target_cpu}-%{oldname} " >> /tmp/baselibs_new.conf
+shellquote "  targettype %{_target_cpu} targetname cross-%{_target_cpu}-kernel-headers " >> /tmp/baselibs_new.conf
 for i in $cleandeps ; do 
   shellquote "  targettype %{_target_cpu} requires \"${i}-cross-%{_target_cpu}-x86\"" >> /tmp/baselibs_new.conf
 done
