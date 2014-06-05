@@ -17,7 +17,8 @@
 ### only changes here
 #
 # The original package name
-%define oldname kernel-headers
+#%define oldname kernel-headers
+%define oldname kernel-headers-3.4-exynos3250
 
 #
 # The architectures this meta package is built on
@@ -31,7 +32,8 @@
 ### no changes needed
 #
 # The new package name - convention is %oldname-x86
-%define newname %{oldname}-arm
+#%define newname %{oldname}-arm
+%define newname kernel-headers-arm
 #
 # The version of the original package is read from its rpm db info
 %{expand:%%define newversion %(rpm -q --qf '[%{version}]' %oldname)}
