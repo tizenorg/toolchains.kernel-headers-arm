@@ -18,7 +18,11 @@
 #
 # The original package name
 #%define oldname kernel-headers
+%if "%{?tizen_profile_name}" == "mobile"
+%define oldname kernel-headers-linux-3.0
+%else
 %define oldname kernel-headers-3.4-exynos3250
+%endif
 
 #
 # The architectures this meta package is built on
