@@ -1,4 +1,4 @@
-# meta spec file for cross-chroot setup 
+# meta spec file for cross-chroot setup
 #
 # Copyright (c) 2010  Jan-Simon Möller (jsmoeller@linuxfoundation.org)
 # License: GPLv2
@@ -7,7 +7,7 @@
 ##
 ## In this file:
 ## 1) define name of original package (see oldname)
-## 
+##
 ## File binaries_to_prepare:
 ## 2) fill in the binaries which need to be available to the foreign chroot
 ##    e.g. /bin/bash   -  this will make a i586 bash available
@@ -21,7 +21,11 @@
 %if "%{?tizen_profile_name}" == "mobile"
 %define oldname kernel-headers-linux-3.0
 %else
+%if "%{tizen_target_name}" == "B3"
+%define oldname kernel-headers-3.4-msm8x26
+%else
 %define oldname kernel-headers-3.4-exynos3250
+%endif
 %endif
 
 #
@@ -151,7 +155,7 @@ cat filestoinclude2 | sed -e "s#%{buildroot}##g" | uniq | sort > filestoinclude1
 for i in `cat filestoinclude1`; do
 # no directories
   if ! test -d %buildroot/$i ; then
-    # 
+    #
     echo "$i" >> filestoinclude
   fi
 done
@@ -227,7 +231,7 @@ shellquote "  targettype 32bit block!" >> /tmp/baselibs_new.conf
 shellquote "  targettype %{_target_cpu} autoreqprov off" >> /tmp/baselibs_new.conf
 #shellquote "  targettype %{_target_cpu} targetname cross-%{_target_cpu}-%{oldname} " >> /tmp/baselibs_new.conf
 shellquote "  targettype %{_target_cpu} targetname cross-%{_target_cpu}-kernel-headers " >> /tmp/baselibs_new.conf
-for i in $cleandeps ; do 
+for i in $cleandeps ; do
   shellquote "  targettype %{_target_cpu} requires \"${i}-cross-%{_target_cpu}-x86\"" >> /tmp/baselibs_new.conf
 done
 shellquote "  targettype %{_target_cpu} prefix /opt/cross/%_target_platform/sys-root" >> /tmp/baselibs_new.conf
